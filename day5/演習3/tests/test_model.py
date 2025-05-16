@@ -176,12 +176,14 @@ def test_model_reproducibility(sample_data, preprocessor):
 def test_prediction_probabilities(train_model):
     """予測確率の妥当性を検証"""
     model, X_test, _ = train_model
-    
+
     # 予測確率を取得
     probabilities = model.predict_proba(X_test)
 
     # 確率が0から1の範囲内にあることを確認
-    assert np.all(probabilities >= 0) and np.all(probabilities <= 1), "予測確率が0から1の範囲外です"
+    assert np.all(probabilities >= 0) and np.all(
+        probabilities <= 1
+    ), "予測確率が0から1の範囲外です"
 
     # 各行の確率の合計が1になることを確認
     assert np.allclose(probabilities.sum(axis=1), 1.0), "予測確率の合計が1になりません"
